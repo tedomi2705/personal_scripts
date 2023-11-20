@@ -1,0 +1,56 @@
+From 44990b826f53991265b1a4abe34697eb1c50a5ce Mon Sep 17 00:00:00 2001
+From: Le Hong Duc <hongducthbk123@gmail.com>
+Date: Mon, 20 Nov 2023 18:46:01 +0700
+Subject: [PATCH] changelog: Don't generate changelog
+
+---
+ tools/changelog.sh | 33 +++++++++++++++++----------------
+ 1 file changed, 17 insertions(+), 16 deletions(-)
+
+diff --git a/tools/changelog.sh b/tools/changelog.sh
+index 32bcdf9..8c500ad 100755
+--- a/tools/changelog.sh
++++ b/tools/changelog.sh
+@@ -24,22 +24,23 @@ touch $Changelog
+ # Print something to build output
+ echo "Generating changelog..."
+ 
+-for i in $(seq 14);
+-do
+-export After_Date=$(/usr/bin/date --date="$i days ago" +%Y/%m/%d)
+-k=$(expr $i - 1)
+-	export Until_Date=$(/usr/bin/date --date="$k days ago" +%Y/%m/%d)
+-
+-	# Line with after --- until was too long for a small ListView
+-	echo '=======================' >> $Changelog;
+-	echo  "     "$Until_Date       >> $Changelog;
+-	echo '=======================' >> $Changelog;
+-	echo >> $Changelog;
+-
+-	# Cycle through every repo to find commits between 2 dates
+-	repo forall -c '. $formatter_script' >> $Changelog
+-	echo >> $Changelog;
+-done
++echo 'See changelog at telegram group @EvolutionXRn6pro' >> $Changelog;
++# for i in $(seq 14);
++# do
++# export After_Date=$(/usr/bin/date --date="$i days ago" +%Y/%m/%d)
++# k=$(expr $i - 1)
++# 	export Until_Date=$(/usr/bin/date --date="$k days ago" +%Y/%m/%d)
++
++# 	# Line with after --- until was too long for a small ListView
++# 	echo '=======================' >> $Changelog;
++# 	echo  "     "$Until_Date       >> $Changelog;
++# 	echo '=======================' >> $Changelog;
++# 	echo >> $Changelog;
++
++# 	# Cycle through every repo to find commits between 2 dates
++# 	repo forall -c '. $formatter_script' >> $Changelog
++# 	echo >> $Changelog;
++# done
+ 
+ cp $Changelog $OUT_DIR/target/product/$DEVICE/system/etc/$Changelog
+ cp $Changelog $OUT_DIR/target/product/$DEVICE/
+-- 
+2.42.0
+
